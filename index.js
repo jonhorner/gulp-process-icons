@@ -37,6 +37,8 @@ module.exports = function (options) {
 
 	options = Object.assign({ searchInExtionsions: ['.tpl', '.html', '.hbs']}, options);
 
+	// console.log(options.selector);
+
 	return through.obj(function (file, enc, cb) {
 		if (file.isNull()) {
 			this.push(file);
@@ -71,12 +73,12 @@ module.exports = function (options) {
 	}, function (cb) {
 		const stream = this;
 
-		getClasses();
+		getClasses(options);
 
-		saveData(classesArr.join(','), './build/styles/test.scss');
+		//saveData(classesArr.join(','), './build/styles/test.scss');
 
 
-
+		saveData('', options.output);
 		for (var i = 0; i < classesArr.length; i++) {
 
 			// Get svg code for the icon
@@ -90,33 +92,24 @@ module.exports = function (options) {
 			   var encodedIcon = result.css;
 
 			   // Append to the sass
-				appendSvg(encodedIcon, './build/styles/_icons.scss');
+			   	appendSvg(encodedIcon, options.output);
 			});
 
 		}
 
 
-		function getClasses(){
+		function getClasses(options){
+
+			// console.log(options.selector);
+			console.log(options.selector);
 			// Search in the cached
 			// files and push them through.
 			cache.forEach(file => {
 
-				/*
-				const modifiedRenames = renames.map(entry => {
-					const unreved = options.modifyUnreved ? options.modifyUnreved(entry.unreved, file) : entry.unreved;
-					const reved = options.modifyReved ? options.modifyReved(entry.reved, file) : entry.reved;
-					return {unreved, reved};
-				});
-				*/
-
 				const contents = file.contents.toString();
 				const $     = cheerio.load(contents);
 
-				const elements   = $('.icon');
-
-
-				// console.log(elements);
-
+				const elements   = $(options.selector);
 				if(elements !== null){
 
 					elements.each(function(i, elem) {
@@ -126,7 +119,7 @@ module.exports = function (options) {
 						const classes = $(this).attr('class').split(' ');
 
 						for (var i = 0; i < classes.length; i++) {
-					        console.log(classes[i]);
+					        // console.log(classes[i]);
 
 					        if(classesArr.indexOf(classes[i]) === -1 && classes[i] !== 'icon') {
 						    	classesArr[classesArr.length] = classes[i];
@@ -143,7 +136,7 @@ module.exports = function (options) {
 
 				}
 
-				console.log(classesArr);
+				// console.log(classesArr);
 
 
 				// console.log(classes);
