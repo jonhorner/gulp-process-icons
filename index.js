@@ -35,7 +35,7 @@ module.exports = function (options) {
 	let root = '';
 	const classesArr = [];
 
-	options = Object.assign({canonicalUris: true, replaceInExtensions: ['.tpl', '.html', '.hbs']}, options);
+	options = Object.assign({ searchInExtionsions: ['.tpl', '.html', '.hbs']}, options);
 
 	return through.obj(function (file, enc, cb) {
 		if (file.isNull()) {
@@ -59,7 +59,7 @@ module.exports = function (options) {
 		//	});
 		//}
 
-		if (options.replaceInExtensions.includes(path.extname(file.path))) {
+		if (options.searchInExtionsions.includes(path.extname(file.path))) {
 			// File should be searched for replaces
 			cache.push(file);
 		} else {
