@@ -1,34 +1,4 @@
 {
-  "_from": "gulp-process-icons",
-  "_id": "gulp-process-icons@1.0.0",
-  "_inBundle": false,
-  "_integrity": "sha512-sDdQLODLBC+56GRqs+kSyrDry7HI2eWD4JiN6xoXycq1l/OxF4rXMVQorLqd1jfY7b3XzeoYEJQG+JIvPqOCsg==",
-  "_location": "/gulp-process-icons",
-  "_phantomChildren": {
-    "readable-stream": "2.3.6"
-  },
-  "_requested": {
-    "type": "tag",
-    "registry": true,
-    "raw": "gulp-process-icons",
-    "name": "gulp-process-icons",
-    "escapedName": "gulp-process-icons",
-    "rawSpec": "",
-    "saveSpec": null,
-    "fetchSpec": "latest"
-  },
-  "_requiredBy": [
-    "#DEV:/",
-    "#USER"
-  ],
-  "_resolved": "https://registry.npmjs.org/gulp-process-icons/-/gulp-process-icons-1.1.4.tgz",
-  "_shasum": "575495a080fb9d95f89a508f40f81dc5369d03a6",
-  "_spec": "gulp-process-icons",
-  "_where": "/Users/jon/Sites/gulptest",
-  "author": {
-    "name": "Jonathan Horner",
-    "url": "https://github.com/jonhorner"
-  },
   "bundleDependencies": false,
   "dependencies": {
     "lodash.escaperegexp": "^4.1.2",
