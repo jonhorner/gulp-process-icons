@@ -36,7 +36,8 @@
     "through2": "^3.0.0",
     "cheerio" : "1",
     "postcss" : "7",
-    "postcss-svgo" : "4"
+    "postcss-svgo" : "4",
+    "@fortawesome/fontawesome-pro": "^5.8.1",
   },
   "deprecated": false,
   "description": "Generate a CSS file from Font Awesome classes within template files",
