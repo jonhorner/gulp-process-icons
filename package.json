@@ -1,25 +1,10 @@
 {
-  "bundleDependencies": false,
-  "dependencies": {
-  },
-  "deprecated": false,
-  "description": "Generate a CSS file from Font Awesome classes within template files",
-  "devDependencies": {
-  },
-  "engines": {
-    "node": ">=6"
-  },
-  "files": [
-    "index.js",
-  ],
-  "license": "MIT",
-  "main": "index.js",
-  "name": "gulp-process-icons",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jonhorner/gulp-process-icons.git"
-  },
-  "scripts": {
-  },
-  "version": "1.0.0"
+    "name": "gulp-process-icons",
+    "version": "0.0.1", //0.0.1 for starters
+    "description": "",
+    "main": "index.js", // example: app.js , index.js etc
+    ,
+    "author": "Jon Horner",
+    "license": "ISC",
+    "dependencies": {}
 }
