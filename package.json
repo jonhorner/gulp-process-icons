@@ -10,7 +10,7 @@
     "lodash.escaperegexp": "^4.1.2",
     "plugin-error": "^1.0.1",
     "through2": "^3.0.0",
-    "cheerio" : "1",
+    "cheerio" : "*",
     "postcss" : "7",
     "postcss-svgo" : "4",
     "@fortawesome/fontawesome-pro": "^5.8.1"
