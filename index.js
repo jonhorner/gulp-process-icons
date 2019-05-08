@@ -45,21 +45,11 @@ module.exports = function (options) {
 			return cb();
 		}
 
-		// this.emit('error', new PluginError('gulp-process-icons', 'Loaded'));
-
 		if (file.isStream()) {
 			this.emit('error', new PluginError('gulp-process-icons', 'Streaming not supported'));
 			return cb();
 		}
 
-
-		// Collect renames from reved files.
-		//if (file.revOrigPath) {
-		//	renames.push({
-		//		unreved: fmtPath(file.revOrigBase, file.revOrigPath),
-		//		reved: fmtPath(file.base, file.path)
-		//	});
-		//}
 
 		if (options.searchInExtionsions.includes(path.extname(file.path))) {
 			// File should be searched for replaces
@@ -79,28 +69,32 @@ module.exports = function (options) {
 
 
 		saveData('', options.output);
+
 		for (var i = 0; i < classesArr.length; i++) {
 
 			// Get svg code for the icon
 			const iconSvg = getSvg(classesArr[i]);
 
-			// Process it
-			var sassIcon = "."+classesArr[i]+"{\n\r\tbackground-image : url(\"data:image/svg+xml,"+iconSvg.replace(/["]/g,'\'')+"\");\n\r}\n\r";
+			if(iconSvg){
+				// Process it
+				var sassIcon = "."+classesArr[i]+"{\n\r\tbackground-image : url(\"data:image/svg+xml,"+iconSvg.replace(/["]/g,'\'')+"\");\n\r}\n\r";
 
-			postcss([ svgo(opts) ]).process(sassIcon).then(function (result) {
-			   //console.log(result);
-			   var encodedIcon = result.css;
+				postcss([ svgo(opts) ]).process(sassIcon).then(function (result) {
+				   //console.log(result);
+				   var encodedIcon = result.css;
 
-			   // Append to the sass
-			   	appendSvg(encodedIcon, options.output);
-			});
+				   // Append to the sass
+				   	appendSvg(encodedIcon, options.output);
+				});
+			}
+
 
 		}
 
 
 		function getClasses(options){
 
-			// console.log(options.selector);
+			console.log(options.selector);
 			console.log(options.selector);
 			// Search in the cached
 			// files and push them through.
@@ -119,7 +113,8 @@ module.exports = function (options) {
 						const classes = $(this).attr('class').split(' ');
 
 						for (var i = 0; i < classes.length; i++) {
-					        // console.log(classes[i]);
+
+					        console.log(classes[i]);
 
 					        if(classesArr.indexOf(classes[i]) === -1 && classes[i] !== 'icon') {
 						    	classesArr[classesArr.length] = classes[i];
@@ -175,9 +170,19 @@ module.exports = function (options) {
 
 			filename = filename.replace('icon-','');
 
-			return fs.readFileSync('./node_modules/@fortawesome/fontawesome-pro/svgs/light/'+filename+'.svg', 'utf8', function(err, contents) {
-			    //console.log(contents);
-			});
+			var fileContents;
+
+			try {
+			  fileContents = fs.readFileSync('./node_modules/@fortawesome/fontawesome-pro/svgs/light/'+filename+'.svg', 'utf8', function(err, contents) {});
+			} catch (err) {
+			  return;
+			}
+
+			return fileContents;
+
+			// return fs.readFileSync('./node_modules/@fortawesome/fontawesome-pro/svgs/light/'+filename+'.svg', 'utf8', function(err, contents) {
+			//     //console.log(contents);
+			// });
 		}
 
 		function appendSvg(data, file){
