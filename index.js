@@ -73,6 +73,7 @@ module.exports = function (options) {
 		for (var i = 0; i < classesArr.length; i++) {
 
 			// Get svg code for the icon
+			console.log('classesArr[i]: '+classesArr[i]);
 			const iconSvg = getSvg(classesArr[i]);
 
 			if(iconSvg){
@@ -94,8 +95,9 @@ module.exports = function (options) {
 
 		function getClasses(options){
 
-			console.log(options.selector);
-			console.log(options.selector);
+			//console.log(options.selector);
+			//console.log(options.selector);
+
 			// Search in the cached
 			// files and push them through.
 			cache.forEach(file => {
@@ -171,14 +173,40 @@ module.exports = function (options) {
 			filename = filename.replace('icon-','');
 
 			var fileContents;
-
+			var brand = false;
 			try {
 			  fileContents = fs.readFileSync('./node_modules/@fortawesome/fontawesome-pro/svgs/light/'+filename+'.svg', 'utf8', function(err, contents) {});
 			} catch (err) {
-			  return;
+
+				// If nothing is found it could be a brand icon
+				brand = true;
+
+				// Don't return we need to process the brand
 			}
 
-			return fileContents;
+			console.log('class: '+filename);
+			console.log('brand: '+brand);
+
+			// Check for brand icon
+			if(brand){
+
+				filename = filename.replace('fab-','');
+
+				console.log('brand icon: '+filename);
+				//console.log('./node_modules/@fortawesome/fontawesome-pro/svgs/brands/'+filename+'.svg');
+
+				try {
+				  fileContents = fs.readFileSync('./node_modules/@fortawesome/fontawesome-pro/svgs/brands/'+filename+'.svg', 'utf8', function(err, contents) {});
+				} catch (err) {
+					console.log(err);
+				  return;
+				}
+			}
+
+			if(fileContents){
+				return fileContents;
+			}
+			return;
 
 			// return fs.readFileSync('./node_modules/@fortawesome/fontawesome-pro/svgs/light/'+filename+'.svg', 'utf8', function(err, contents) {
 			//     //console.log(contents);
